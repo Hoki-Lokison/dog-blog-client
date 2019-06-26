@@ -19,7 +19,8 @@ var app = new Vue({
     newName:"",
     newPicture: "",
     newPost:"",
-    url: "http://localhost:3000",
+    //url: "http://localhost:3000",
+    url: "https://dog-blog-server.herokuapp.com"
   },
   created: function () {
     this.loadPosts();
