@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,700&display=swap" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="style.css"></link>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+  	<link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+	</head>
+<body>
+	<div id="app">
+		<v-app>
+			<v-content>
+				<v-toolbar>
+					<v-toolbar-side-icon @click="drawer=!drawer"></v-toolbar-side-icon>
+					<v-toolbar-title>Dog Blog</v-toolbar-title>
+					<v-spacer></v-spacer>
+					<v-toolbar-items>
+						<v-btn flat v-on:click="page='blog'">Blog</v-btn>
+						<v-btn flat v-on:click="page='post'">Post</v-btn>
+					</v-toolbar-items>
+				</v-toolbar>
+				<v-navigation-drawer app v-model="drawer">
+					<v-list>
+						<v-list-tile v-for="blog in blogs">
+								<v-list-tile-title>{{blog.title}}</v-list-tile-title>
+						</v-list-tile>
+					</v-list>
+				</v-navigation-drawer>
+
+
+
+
+				<div v-if="page=='blog'">
+
+					<v-flex xs12 sm6 offset-sm3>
+						<v-container class="mt-2 mb-0">
+			        <v-select
+			          :items="categories"
+			          label="Choose a category"
+			          outline
+								v-model="selectedCategory"
+			        ></v-select>
+						</v-container>
+		      </v-flex>
+
+
+
+					<v-layout row wrap>
+						<v-flex xs12 sm6 offset-sm3>
+							<v-container>
+				 				<v-card  v-for="post in sortedPosts" class="mb-5">
+									<!-- width="300" -->
+									<v-img :src="post.image"></v-img>
+									<v-card-title primary-title>
+					          <div>
+					            <h3 class="headline mb-0">{{post.title}}</h3>
+											<h3 class="subheading mb-0"> Created By: {{post.author}}</h3>
+											<div>{{post.date}}</div>
+											<div>{{post.text}}</div>
+					          </div>
+					        </v-card-title>
+									<v-card-actions>
+					          <v-btn flat>Share</v-btn>
+					          <v-btn flat>Explore</v-btn>
+					        </v-card-actions>
+								</v-card>
+							</v-container>
+						</v-flex>
+					</v-layout>
+				</div>
+
+
+
+
+
+
+				<div v-if="page=='post'">
+					<v-flex xs12 sm6 offset-sm3>
+						<v-card>
+							<v-container id="e3" class="grey lighten-3 mt-5">
+								<form>
+									<h3 class="headline mb-0">Create Post</h3>
+								    <v-text-field
+								      v-model="newName"
+								      :counter="30"
+								      label="Enter Author Name"
+								      required
+								    ></v-text-field>
+										<v-text-field
+								      v-model="newTitle"
+								      :counter="30"
+								      label="Enter Article Title"
+								      required
+								    ></v-text-field>
+										<v-text-field
+								      v-model="newPicture"
+								      :counter="200"
+								      label="Enter a Url for the Article Photo"
+								      required
+								    ></v-text-field>
+										<v-select
+						          :items="categories"
+						          label="Choose a category"
+											v-model="newCategory"
+						        ></v-select>
+										<v-textarea
+						          v-model="newPost"
+						          label="Enter Blog Post"
+						        ></v-textarea>
+
+								    <v-btn @click="newBlog()">submit</v-btn>
+								    <v-btn @click="clearPost()">clear</v-btn>
+								  </form>
+								</v-container>
+							</v-card>
+						</v-flex>
+				</div>
+
+			</v-content>
+		</v-app>
+
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+	<script src="code.js"></script>
+
+
+	</body>
+	</html>
