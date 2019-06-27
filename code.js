@@ -19,14 +19,39 @@ var app = new Vue({
     newName:"",
     newPicture: "",
     newPost:"",
-    //url: "http://localhost:3000",
-    url: "https://dog-blog-server.herokuapp.com"
+    url: "http://localhost:3000",
+    //url: "https://dog-blog-server.herokuapp.com"
+    secret_keycode: "",
+
   },
   created: function () {
     this.loadPosts();
+    window.addEventListener("keyup", this.keyEvents);
+
   },
 
   methods: {
+    keyEvents: function(event){
+      console.log(event.which);
+      if (event.which == 68) {
+        if (this.secret_keycode = "") {
+          this.secret_keycode += "D";
+        }
+      } else if (event.which == 69) {
+        if (this.secret_keycode = "") {
+          this.secret_keycode = "DE";
+        }
+      } else if (event.which == 76) {
+        if (this.secret_keycode = "") {
+          this.secret_keycode = "DEL";
+        }
+      } else if (event.which == 46 || event.which == 8) {
+        this.secret_keycode = "DEL";
+      } else {
+        this.secret_keycode = "";
+      };
+
+    },
     /* newBlog: function () {
       var newBlogPost = {
         title: this.newTitle,
@@ -97,6 +122,20 @@ var app = new Vue({
         });
       });
     },
+    deletePost: function () {
+      fetch(this.url+"/blogs"+blog._id, {
+        method: "DELETE",
+      }).then(function (response) {
+        if (response.status == 204) {
+          console.log("it worked");
+          app.loadPosts;
+        } else if (response.status == 400) {
+          response.json().then(function (data) {
+            alert(data.msg);
+          })
+        }
+      })
+    }
 
 
 
@@ -111,6 +150,9 @@ var app = new Vue({
         });
         return sorted_post;
       };
+    },
+    show_delete: function () {
+        return this.secret_keycode=="DEL";
     },
   },
 });

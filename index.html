@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8"></meta>
-		
+
     <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,700&display=swap" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="style.css"></link>
 		<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
@@ -53,8 +53,9 @@
 						<v-flex xs12 sm6 offset-sm3>
 							<v-container>
 				 				<v-card  v-for="post in sortedPosts" class="mb-5">
+									<v-btn icon @click="deletePost()"><v-icon  class="right" color="red" v-if="show_delete" >delete</v-icon></v-btn>
 									<!-- width="300" -->
-									<v-img :src="post.image"></v-img>
+									<v-img :src="post.image"> </v-img>
 									<v-card-title primary-title>
 					          <div>
 					            <h3 class="headline mb-0">{{post.title}}</h3>
