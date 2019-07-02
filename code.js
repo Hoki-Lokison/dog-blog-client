@@ -86,6 +86,7 @@ var app = new Vue({
           text: this.newPost
         }
       };
+      //req body is correct.
       fetch(this.url+"/blogs", {
         method: "POST",
         headers: {
