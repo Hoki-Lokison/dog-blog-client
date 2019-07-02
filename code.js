@@ -122,20 +122,21 @@ var app = new Vue({
         });
       });
     },
-    deletePost: function () {
-      fetch(this.url+"/blogs"+blog._id, {
+    deletePost: function (postID) {
+      console.log("Post ID: ", postID)
+      fetch(this.url+"/blogs/"+`${postID}`, {
         method: "DELETE",
       }).then(function (response) {
         if (response.status == 204) {
           console.log("it worked");
-          app.loadPosts;
+          app.loadPosts();
         } else if (response.status == 400) {
           response.json().then(function (data) {
             alert(data.msg);
-          })
-        }
-      })
-    }
+          });
+        };
+      });
+    },
 
 
 

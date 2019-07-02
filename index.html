@@ -53,7 +53,7 @@
 						<v-flex xs12 sm6 offset-sm3>
 							<v-container>
 				 				<v-card  v-for="post in sortedPosts" class="mb-5">
-									<v-btn icon @click="deletePost()"><v-icon  class="right" color="red" v-if="show_delete" >delete</v-icon></v-btn>
+									<v-btn icon @click="deletePost(post._id)"><v-icon  class="right" color="red" v-if="show_delete" >delete</v-icon></v-btn>
 									<!-- width="300" -->
 									<v-img :src="post.image"> </v-img>
 									<v-card-title primary-title>
