@@ -21,8 +21,7 @@ var app = new Vue({
     newPost:"",
     url: "http://localhost:3000",
     //url: "https://dog-blog-server.herokuapp.com"
-    secret_keycode: "",
-
+    show_delete: false,
   },
   created: function () {
     this.loadPosts();
@@ -34,21 +33,11 @@ var app = new Vue({
     keyEvents: function(event){
       console.log(event.which);
       if (event.which == 68) {
-        if (this.secret_keycode = "") {
-          this.secret_keycode += "D";
-        }
-      } else if (event.which == 69) {
-        if (this.secret_keycode = "") {
-          this.secret_keycode = "DE";
-        }
-      } else if (event.which == 76) {
-        if (this.secret_keycode = "") {
-          this.secret_keycode = "DEL";
-        }
+        this.show_delete = !this.show_delete
       } else if (event.which == 46 || event.which == 8) {
-        this.secret_keycode = "DEL";
+        this.show_delete = !this.show_delete
       } else {
-        this.secret_keycode = "";
+        this.show_delete = !this.show_delete
       };
 
     },
@@ -152,9 +141,6 @@ var app = new Vue({
         });
         return sorted_post;
       };
-    },
-    show_delete: function () {
-        return this.secret_keycode=="DEL";
     },
   },
 });
