@@ -1,6 +1,6 @@
 var app = new Vue({
   el: "#app",
-
+  
   data: {
     page: "blog",
     drawer: false,
@@ -22,6 +22,8 @@ var app = new Vue({
     url: "http://localhost:3000",
     //url: "https://dog-blog-server.herokuapp.com"
     show_delete: false,
+    editing: false,
+    editId: "",
   },
   created: function () {
     this.loadPosts();
@@ -127,6 +129,46 @@ var app = new Vue({
         };
       });
     },
+    editPost: function (postID) {
+      this.page = "post";
+      this.editing = true;
+      this.editId = postID;
+      fetch(this.url+"/blogs/"+`${postID}`, {
+        method: "GET",
+      }).then(function (response) {
+        if (response.status == 201){
+          response.json().then(function (data) {
+            this.newName = data.blog.author;
+            this.newTitle = data.blog.title;
+            this.newPicture = data.blog.image;
+            this.newCategory = data.blog.category;
+            this.newPost = data.blog.text;
+          });
+        } else if (response.status == 400) {
+          response.json().then(function (data) {
+            alert(data.msg);
+          });
+        };
+      });
+    },
+    updatePost: function () {
+      fetch(this.url+"/blogs/"+`${this.editId}`, {
+        method: "PUT",
+				headers: {
+					"Content-type": "application/json"
+				},
+				body: JSON.stringify( req_body )
+      }).then(function (response) {
+        if (response.status == 204) {
+          console.log("it worked");
+          app.loadPosts();
+        } else if (response.status == 400) {
+          response.json().then(function (data) {
+            alert(data.msg);
+          });
+        };
+      });
+    }
 
 
 

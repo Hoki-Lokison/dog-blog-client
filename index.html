@@ -65,7 +65,7 @@
 					          </div>
 					        </v-card-title>
 									<v-card-actions>
-					          <v-btn flat>Share</v-btn>
+					          <v-btn flat @click="editPost(post._id)">Edit</v-btn>
 					          <v-btn flat @click="selectedCategory = 'All'">Explore</v-btn>
 					        </v-card-actions>
 								</v-card>
@@ -83,7 +83,7 @@
 					<v-flex xs12 sm6 offset-sm3>
 						<v-card>
 							<v-container id="e3" class="grey lighten-3 mt-5">
-								<form>
+								<form id="change">
 									<h3 class="headline mb-0">Create Post</h3>
 								    <v-text-field
 								      v-model="newName"
@@ -96,7 +96,7 @@
 								      :counter="30"
 								      label="Enter Article Title"
 								      required
-								    ></v-text-field>
+								    >{{newTitle}}</v-text-field>
 										<v-text-field
 								      v-model="newPicture"
 								      :counter="200"
@@ -114,6 +114,7 @@
 						        ></v-textarea>
 
 								    <v-btn @click="newBlog()">submit</v-btn>
+										<v-btn v-if="editing == true" @click="updatePost()"></v-btn>
 								    <v-btn @click="clearPost()">clear</v-btn>
 								  </form>
 								</v-container>
